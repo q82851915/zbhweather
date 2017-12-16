@@ -2,6 +2,7 @@ package com.zbhweather.android.db;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zbhweather.android.R;
+import com.zbhweather.android.WeatherActivity;
 import com.zbhweather.android.util.HttpUtil;
 import com.zbhweather.android.util.Utility;
 
@@ -27,9 +29,6 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-
-import static android.R.attr.data;
-import static junit.runner.Version.id;
 
 /**
  * Created by 30484 on 2017/12/12.
@@ -95,6 +94,12 @@ public class ChooseAreaFragment extends Fragment {
                 }else if (currentLevel == LEVEL_CITY){
                     selectedCity =cityList.get(position);
                     queryCounties();
+                }else if(currentLevel ==LEVEL_COUNTRY){
+                    String weatherId = countryList.get(position).getWeatherId();
+                    Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                    intent.putExtra("weather_id",weatherId);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });
